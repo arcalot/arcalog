@@ -1,0 +1,10 @@
+# Rename this config to config.yaml if you would like to use the default settings or use "arcalog --config" to specify a different config file
+
+# Path to directory where you want to store data from the collection step, default: ./data
+#data: "your/path/to/data/"
+
+collection:
+  # For a list of currently supported collection sources, please see the documentation
+  prow:
+    location:
+      - "https://prow.k8s.io"
