@@ -134,10 +134,11 @@ pub struct Event {
 ///
 /// A vector of log events containing elements from the failure-relevant corpora
 pub async fn collect_events(build_id: String, path: String) -> Vec<String> {
-    if !Path::new(&path).exists() {
+    let artifact_path = format!("{}/prow/artifacts/{}", path, build_id);
+    if !Path::new(&artifact_path).exists() {
         download_artifacts(&build_id, &path).await;
     }
-    let file_index = create_file_index(path.clone()).await;
+    let file_index = create_file_index(artifact_path.clone()).await;
     let mut events: Vec<String> = Vec::new();
 
     for file in file_index {
@@ -151,7 +152,6 @@ pub async fn collect_events(build_id: String, path: String) -> Vec<String> {
                     if line_contents.contains(Nouns::new().nouns[0].as_str()) {
                         let event = line_contents;
                         events.push(event);
-                        println!("Event: {}", events.last().unwrap());
                     }
                 }
             }

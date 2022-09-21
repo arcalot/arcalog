@@ -1,5 +1,6 @@
 [package]
 name = "arcalog"
+readme = "README.md"
 description = "Automated/assisted root cause analysis in various logging systems including CI"
 categories = ["command-line-utilities", "data-structures", "encoding", "text-processing", "visualization"]
 keywords = ["log", "analysis", "debugging", "ci", "data"]

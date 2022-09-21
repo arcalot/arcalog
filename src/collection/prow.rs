@@ -699,6 +699,7 @@ pub struct BuildInfo {
 /// * `volume` - The data path where the files will be stored
 /// * `artifactions_collection` - If set to true, the function will also download all artifacts of all builds in the current collection step
 pub async fn download_metadata(location: &str, volume: &str, artifacts_collection: bool) {
+    println!("🔍\t\x1b[32m\x1b[1mCollecting metadata from Prow...\x1b[0m");
     let time_id = add_time_id();
     let volume_slash = check_slash(&volume);
     let folder_data = format!("{}prow", &volume_slash);
@@ -796,6 +797,7 @@ pub async fn download_metadata(location: &str, volume: &str, artifacts_collectio
         &job_types,
     )
     .expect("Failed to write job types map to file");
+    println!("🔍\t\x1b[32m\x1b[1mMetadata collected...\x1b[0m");
 
     if artifacts_collection {
         for item in build_id_failures {
@@ -1023,11 +1025,7 @@ pub async fn get_build_info(build_id: String, source_path: String) -> BuildInfo 
         }
 
         if send_build_info.build_url.is_some() {
-            let all_events = collect_events(
-                build_id.clone(),
-                format!("{}prow/artifacts/{}", source_path, &build_id),
-            )
-            .await;
+            let all_events = collect_events(build_id.clone(), source_path).await;
             send_build_info.events = Some(all_events);
             return send_build_info;
         } else {
@@ -1038,7 +1036,10 @@ pub async fn get_build_info(build_id: String, source_path: String) -> BuildInfo 
                 state: None,
                 job_type: None,
                 events: None,
-                error: Some("Please put in a valid build ID".to_string()),
+                error: Some(
+                    "Please put in a valid build ID. Have you made sure to collect the metadata?"
+                        .to_string(),
+                ),
             };
         }
     }
