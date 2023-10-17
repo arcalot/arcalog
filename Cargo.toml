@@ -16,11 +16,11 @@ signal-hook = "0.3.17"
 chrono = "0.4"
 regex = "1.9"
 async-recursion = "1.0.5"
-reqwest = { version = "0.11.20", features = ["json"] }
+reqwest = { version = "0.11.22", features = ["json"] }
 axum = "0.6.20"
 tokio = { version = "1", features = ["full"] }
 walkdir = "2"
-serde = { version = "1.0.188", features = ["derive"] }
+serde = { version = "1.0.189", features = ["derive"] }
 serde_bytes = "0.11"
 serde_json = "1.0"
 serde_yaml = "0.9"
