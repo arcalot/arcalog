@@ -1,9 +1,9 @@
-FROM rust:latest@sha256:73af736ea21c14181c257bf674c7095a8bad6343a1eadd327a8bf1ce1c5209b4 AS builder
+FROM rust:latest@sha256:6de6071df133f8be44dd4538c74e93590941c6d2b9c98853e05011714fbcf57d AS builder
 WORKDIR /arcalog
 COPY . .
 RUN cargo install --path .
 
-FROM quay.io/centos/centos:stream9@sha256:aeca8aee6df1e62c25f306396dc6631520dc350fe90d48cf30f45272ffeb2c61
+FROM quay.io/centos/centos:stream9@sha256:30178f32547587d82188bb3ffa27f394da32d311e590f4d7cd9a66e2953c1d68
 RUN dnf install -y compat-openssl11
 WORKDIR /
 VOLUME ["/data"]
